@@ -7,3 +7,4 @@ WHERE H.id = PSM.hpq_hh_id AND H.id = PEM.hpq_hh_id AND H.id = PIM.hpq_hh_id
         AND PEM.phiheal_empl_mem_refno = PIM.phiheal_indiv_mem_refno 
         AND PIM.phiheal_indiv_mem_refno = PLM.phiheal_life_mem_refno 
 GROUP BY H.mun,H.zone,H.brgy
+HAVING benefCount > 0

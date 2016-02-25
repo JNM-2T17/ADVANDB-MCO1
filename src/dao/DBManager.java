@@ -1,3 +1,4 @@
+package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,13 +9,14 @@ public class DBManager {
 	private String dbName;
 	private String username;
 	private String password;
+	private static DBManager instance = null;
 	/*
 	  	DBManager test = new DBManager("com.mysql.jdbc.DriverManager"
 									,"jdbc:mysql://127.0.0.1:3306/"
 									,"db_hpq","root","fuckmedikotopassword");
 	*/
 	
-	public DBManager(String driverName,String url,String dbName
+	private DBManager(String driverName,String url,String dbName
 						,String username,String password) {
 		this.driverName = driverName; //com.mysql.jdbc.DriverManager
 		this.url = url; //jdbc.mysql://127.0.0.1:3306/
@@ -30,6 +32,17 @@ public class DBManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public static DBManager getInstance(){
+		if(instance!=null){
+			return instance;
+		} else {
+			instance = new DBManager("com.mysql.jdbc.DriverManager"
+					,"jdbc:mysql://127.0.0.1:3306/"
+					,"db_hpq","root","IforgoT197!!");
+			return instance;
 		}
 	}
 	
