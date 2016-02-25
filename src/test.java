@@ -20,6 +20,8 @@ public class test {
 		System.out.println(list3.size());
 		Collection<FishCount> list4 = BaseQueries.getFishCountsGraterThan(0);
 		System.out.println(list4.size());
+		Collection<CropVolume> list5 = BaseQueries.getCropVolumesGraterThan(0);
+		System.out.println(list5.size());
 		Collection<CatchRatio> list6 = BaseQueries.getCatchRatiosGraterThan(0);
 		System.out.println(list6.size());
 		Collection<CommonBeneficiary> list7 = BaseQueries.getCommonBeneficiariesGraterThan(0);
