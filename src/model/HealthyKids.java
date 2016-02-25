@@ -3,7 +3,7 @@ package model;
 public class HealthyKids {
 	private String country_resid;
 	private String prov_resid_code;
-	private int mnutind;
+	private String nutStatus;
 	private int nutCount;
 	
 	public HealthyKids(String country_resid, String prov_resid_code,
@@ -11,7 +11,14 @@ public class HealthyKids {
 		super();
 		this.country_resid = country_resid;
 		this.prov_resid_code = prov_resid_code;
-		this.mnutind = mnutind;
+		switch(mnutind){
+		case 1:
+			nutStatus = "Above Normal";
+			break;
+		case 2:
+			nutStatus = "Normal";
+			break;
+		}
 		this.nutCount = nutCount;
 	}
 
@@ -23,8 +30,8 @@ public class HealthyKids {
 		return prov_resid_code;
 	}
 
-	public int getMnutind() {
-		return mnutind;
+	public String getNutStatus() {
+		return nutStatus;
 	}
 
 	public int getNutCount() {
@@ -34,8 +41,8 @@ public class HealthyKids {
 	@Override
 	public String toString() {
 		return "HealthyKids [country_resid=" + country_resid
-				+ ", prov_resid_code=" + prov_resid_code + ", mnutind="
-				+ mnutind + ", nutCount=" + nutCount + "]";
+				+ ", prov_resid_code=" + prov_resid_code + ", nutStatus="
+				+ nutStatus + ", nutCount=" + nutCount + "]";
 	}
 	
 	

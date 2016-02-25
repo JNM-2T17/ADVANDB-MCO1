@@ -39,6 +39,12 @@ public class DBManager {
 		if(instance!=null){
 			return instance;
 		} else {
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			instance = new DBManager("com.mysql.jdbc.DriverManager"
 					,"jdbc:mysql://127.0.0.1:3306/"
 					,"db_hpq","root","IforgoT197!!");
