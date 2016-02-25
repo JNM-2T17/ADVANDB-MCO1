@@ -28,12 +28,11 @@ public class BaseQueries {
 							+ ", SUM(nnucfam) AS `Nuclear Families`, SUM(nofw) AS OFWs"
 							+ ", SUM(nofw) / SUM(nnucfam) AS `Average OFW's per Nuclear Family`"
 							+ " FROM db_hpq.hpq_hh"
+							+ " WHERE nnucfam > 0"
 							+ " GROUP BY mun, zone, brgy, purok"
 							+ " HAVING SUM(nofw) > ?");
 			statement.setInt(1, val);
-			System.out.println("HERE");
 			resultSet = statement.executeQuery();
-			System.out.println("HERE");
 			
 			while(resultSet.next())
 			{
@@ -121,7 +120,7 @@ public class BaseQueries {
 		return list;
 	}
 	
-	public static Collection<FishCount> getFishCountsGraterThan(int val){
+	public static Collection<FishCount> getFishCountsGreaterThan(int val, int aquanitype){
 		ArrayList<FishCount> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
@@ -130,10 +129,11 @@ public class BaseQueries {
 			statement = connection.prepareStatement(
 					"SELECT H.mun,H.zone,H.brgy, aquanitype, COUNT(H.id) fishcount"
 							+ " FROM hpq_hh H, hpq_aquani A"
-							+ " WHERE H.id = A.hpq_hh_id AND aquanitype = 6"
+							+ " WHERE H.id = A.hpq_hh_id AND aquanitype = ?"
 							+ " GROUP BY H.mun,H.zone,H.brgy,aquanitype"
 							+ " HAVING COUNT(H.id) > ?");
-			statement.setInt(1, val);
+			statement.setInt(1, aquanitype);
+			statement.setInt(2, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())
@@ -188,7 +188,7 @@ public class BaseQueries {
 		return list;
 	}
 	
-	public static Collection<CatchRatio> getCatchRatiosGreaterThan(double val){
+	public static Collection<CatchRatio> getCatchRatiosGreaterThan(double val, int aquaequiptype, int aquanitype){
 		ArrayList<CatchRatio> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
@@ -197,10 +197,13 @@ public class BaseQueries {
 			statement = connection.prepareStatement(
 					"select mun, zone, brgy, SUM(aquaequip_line) AS totalequip, SUM(aquani_vol) AS totalvol, SUM(aquani_vol)/SUM(aquaequip_line) AS CatchPerEquip "
 							+ " from hpq_aquaequip aa, hpq_aquani ap, hpq_hh h"
-							+ " where h.id = aa.hpq_hh_id && h.id = ap.hpq_hh_id"
+							+ " where h.id = aa.hpq_hh_id && h.id = ap.hpq_hh_id AND aquaequiptype = ?"
+							+ " AND aquanitype = ?"
 							+ " group by H.mun,H.zone,H.brgy"
 							+ " HAVING CatchPerEquip > ?");
-			statement.setDouble(1, val);
+			statement.setInt(1, aquaequiptype);
+			statement.setInt(2, aquanitype);
+			statement.setDouble(3, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())

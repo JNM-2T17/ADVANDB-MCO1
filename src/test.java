@@ -22,13 +22,13 @@ public class test {
 		Collection<AvgDeathAge> list3 = BaseQueries.getAvgDeathAgeGraterThan(0);
 		System.out.println(list3.size());
 		System.out.println("TEST");
-		Collection<FishCount> list4 = BaseQueries.getFishCountsGraterThan(0);
+		Collection<FishCount> list4 = BaseQueries.getFishCountsGreaterThan(0,6);
 		System.out.println(list4.size());
 		System.out.println("TEST");
 		Collection<CropVolume> list5 = BaseQueries.getCropVolumesGreaterThan(0);
 		System.out.println(list5.size());
 		System.out.println("TEST");
-		Collection<CatchRatio> list6 = BaseQueries.getCatchRatiosGreaterThan(0);
+		Collection<CatchRatio> list6 = BaseQueries.getCatchRatiosGreaterThan(0,2,2);
 		System.out.println(list6.size());
 		System.out.println("TEST");
 		Collection<CommonBeneficiary> list7 = BaseQueries.getCommonBeneficiariesGraterThan(0);
