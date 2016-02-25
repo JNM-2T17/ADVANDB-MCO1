@@ -65,7 +65,7 @@ public class OptimizedQueries {
 					"SELECT country_resid, prov_resid_code, mnutind,COUNT(mnutind) nutCount"
 					+ " FROM (SELECT country_resid, prof_resid_code, mnutind"
 					+ " FROM hpq_mem"
-					+ " WHERE mnutind <= ?)"
+					+ " WHERE mnutind <= ?) M"
 					+ " GROUP BY country_resid, prov_resid_code,mnutind"
 					+ " HAVING nutCount > ?)");
 			statement.setInt(1, minNutIndex);
@@ -132,14 +132,14 @@ public class OptimizedQueries {
 		ResultSet resultSet = null;
 		try {
 			statement = connection.prepareStatement(
-					"SELECT H.mun,H.zone,H.brgy, aquanitype, COUNT(H.id) fishcount"
+					"SELECT H.mun,H.zone,H.brgy, COUNT(H.id) fishcount"
 					+ " FROM (SELECT id,mun,zone,brgy "
 					+ " FROM hpq_hh) H INNER JOIN "
 					+ " (SELECT hpq_hh_id, aquanitype "
 					+ " FROM hpq_aquani"
 					+ " WHERE aquanitype = ?) A"
 					+ " ON H.id = A.hpq_hh_id"
-					+ " GROUP BY H.mun,H.zone,H.brgy,aquanitype"
+					+ " GROUP BY H.mun,H.zone,H.brgy"
 					+ " HAVING COUNT(H.id) > ?");
 			statement.setInt(1, aquanitype);
 			statement.setInt(2, val);
@@ -226,7 +226,7 @@ public class OptimizedQueries {
 					+ "		FROM hpq_hh) H"
 					+ "	ON H.id = AA.hpq_hh_id"
 					+ " group by H.mun,H.zone,H.brgy"
-					+ " having catchperequip > 0");
+					+ " having catchperequip > ?");
 			statement.setInt(1, aquaequiptype);
 			statement.setInt(2, aquanitype);
 			statement.setDouble(3, val);
