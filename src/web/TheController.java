@@ -44,8 +44,7 @@ public class TheController {
 		}
 		time = System.currentTimeMillis()-time;
 		request.setAttribute("avgofws", list);
-		System.out.println(time);
-		request.setAttribute("time", time);
+		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query1_results.jsp").forward(request, response);
 	}
 	
@@ -65,7 +64,7 @@ public class TheController {
 		}
 		time = System.currentTimeMillis()-time;
 		request.setAttribute("healthykids", list);
-		request.setAttribute("time", time);
+		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query2_results.jsp").forward(request, response);
 	}
 	
@@ -84,7 +83,7 @@ public class TheController {
 		}
 		time = System.currentTimeMillis()-time;
 		request.setAttribute("avgdeaths", list);
-		request.setAttribute("time", time);
+		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query3_results.jsp").forward(request, response);
 	}
 	
@@ -102,8 +101,9 @@ public class TheController {
 			list = OptimizedQueries.getFishCountsGreaterThan(val, aquanitype);
 			break;
 		}
+		time = System.currentTimeMillis()-time;
 		request.setAttribute("fishcount", list);
-		request.setAttribute("time", time);
+		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query4_results.jsp").forward(request, response);
 	}
 	
@@ -120,8 +120,9 @@ public class TheController {
 			list = OptimizedQueries.getCropVolumesGreaterThan(val);
 			break;
 		}
+		time = System.currentTimeMillis()-time;
 		request.setAttribute("cropvolume", list);
-		request.setAttribute("time", time);
+		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query5_results.jsp").forward(request, response);
 	}
 	
@@ -139,15 +140,15 @@ public class TheController {
 			list = OptimizedQueries.getCatchRatiosGreaterThan(val, aquaequiptype, aquanitype);
 			break;
 		}
+		time = System.currentTimeMillis()-time;
 		request.setAttribute("catchratios", list);
-		request.setAttribute("time", time);
+		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query6_results.jsp").forward(request, response);
 	}
 	
 	@RequestMapping("/BaseQuery7")
 	public void baseQuery7(@RequestParam(value="val") int val, @RequestParam(value="type") int type, 
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("HELLO SHIT");
 		Collection<CommonBeneficiary> list = null;
 		long time = System.currentTimeMillis();
 		switch(type){
@@ -158,8 +159,9 @@ public class TheController {
 			list = OptimizedQueries.getCommonBeneficiariesGreaterThan(val);
 			break;
 		}
+		time = System.currentTimeMillis()-time;
 		request.setAttribute("commonbeneficiaries", list);
-		request.setAttribute("time", time);
+		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query7_results.jsp").forward(request, response);
 	}
 }
