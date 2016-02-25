@@ -1,3 +1,5 @@
+CREATE INDEX HIndex1
+ON db_hpq.hpq_hh (id, mun, zone, brgy);
 CREATE INDEX hpq_phiheal_spon_memidx_1
 	ON hpq_phiheal_spon_mem(phiheal_spon_mem_refno);
 CREATE INDEX hpq_phiheal_empl_memidx_1
@@ -28,6 +30,7 @@ FROM (SELECT id, mun, zone, brgy
 GROUP BY H.mun,H.zone,H.brgy
 HAVING benefCount > 0;
 
+ALTER TABLE hpq_hh DROP INDEX HIndex1;
 DROP INDEX hpq_phiheal_spon_memidx_1
 	ON hpq_phiheal_spon_mem;
 DROP INDEX hpq_phiheal_empl_memidx_1

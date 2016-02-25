@@ -1,6 +1,11 @@
+CREATE INDEX HIndex
+ON db_hpq.hpq_mem (country_resid, prov_resid_code, mnutind);
+
 SELECT country_resid, prov_resid_code, mnutind,COUNT(mnutind) nutCount
-FROM (SELECT country_resid, prof_resid_code, mnutind
+FROM (SELECT country_resid, prov_resid_code, mnutind
 		FROM hpq_mem
-		WHERE mnutind <= 2)
+		WHERE mnutind <= 2) A
 GROUP BY country_resid, prov_resid_code,mnutind
-HAVING nutCount > 0
+HAVING nutCount > 0;
+
+ALTER TABLE db_hpq.hpq_mem DROP INDEX HIndex;

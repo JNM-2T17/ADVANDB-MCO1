@@ -1,3 +1,10 @@
+CREATE INDEX HIndex1
+ON db_hpq.hpq_hh (id, mun, zone, brgy);
+CREATE INDEX HIndex2
+ON db_hpq.hpq_aquaequip (hpq_hh_id, aquaequip_line);
+CREATE INDEX HIndex3
+ON db_hpq.hpq_aquani (hpq_hh_id, aquani_vol);
+
 select mun, zone, brgy,SUM(aquaequip_line) AS totalequip
 		, SUM(aquani_vol) AS totalvol
         , SUM(aquani_vol)/SUM(aquaequip_line) AS CatchPerEquip
@@ -11,4 +18,8 @@ from ((SELECT hpq_hh_id,aquaequip_line
     (SELECT id, mun, zone, brgy
 		FROM hpq_hh) H
 	ON H.id = AA.hpq_hh_id
-group by H.mun,H.zone,H.brgy
+group by H.mun,H.zone,H.brgy;
+
+ALTER TABLE hpq_hh DROP INDEX HIndex1;
+ALTER TABLE hpq_aquaequip DROP INDEX HIndex2;
+ALTER TABLE hpq_aquani DROP INDEX HIndex3;
