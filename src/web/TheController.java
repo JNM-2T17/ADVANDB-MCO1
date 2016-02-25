@@ -36,8 +36,9 @@ public class TheController {
 	}
 	
 	@RequestMapping("/BaseQuery2")
-	public void baseQuery2(@RequestParam(value="val") int val, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		Collection<HealthyKids> list = BaseQueries.getPlacesWithHealthyKidsGreaterThan(val);
+	public void baseQuery2(@RequestParam(value="val") int val, @RequestParam(value="minNutIndex") int minNutIndex, 
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		Collection<HealthyKids> list = BaseQueries.getPlacesWithHealthyKidsGreaterThan(val, minNutIndex);
 		request.setAttribute("healthykids", list);
 		request.getRequestDispatcher("WEB-INF/view/query2_results.jsp").forward(request, response);
 	}
@@ -50,22 +51,25 @@ public class TheController {
 	}
 	
 	@RequestMapping("/BaseQuery4")
-	public void baseQuery4(@RequestParam(value="val") int val, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		Collection<FishCount> list = BaseQueries.getFishCountsGraterThan(val);
+	public void baseQuery4(@RequestParam(value="val") int val, @RequestParam(value="aquanitype") int aquanitype, 
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		Collection<FishCount> list = BaseQueries.getFishCountsGreaterThan(val, aquanitype);
 		request.setAttribute("fishcount", list);
 		request.getRequestDispatcher("WEB-INF/view/query4_results.jsp").forward(request, response);
 	}
 	
 	@RequestMapping("/BaseQuery5")
 	public void baseQuery5(@RequestParam(value="val") double val, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		Collection<CropVolume> list = BaseQueries.getCropVolumesGraterThan(val);
+		Collection<CropVolume> list = BaseQueries.getCropVolumesGreaterThan(val);
 		request.setAttribute("cropvolume", list);
 		request.getRequestDispatcher("WEB-INF/view/query5_results.jsp").forward(request, response);
 	}
 	
 	@RequestMapping("/BaseQuery6")
-	public void baseQuery6(@RequestParam(value="val") double val, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		Collection<CatchRatio> list = BaseQueries.getCatchRatiosGraterThan(val);
+	public void baseQuery6(@RequestParam(value="val") double val, 
+			@RequestParam(value="aquaequiptype") int aquaequiptype, @RequestParam(value="aquanitype") int aquanitype, 
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		Collection<CatchRatio> list = BaseQueries.getCatchRatiosGreaterThan(val, aquaequiptype, aquanitype);
 		request.setAttribute("catchratios", list);
 		request.getRequestDispatcher("WEB-INF/view/query6_results.jsp").forward(request, response);
 	}

@@ -89,7 +89,7 @@ public class OptimizedQueries {
 		return list;
 	}
 	
-	public static Collection<AvgDeathAge> getAvgDeathAgeGraterThan(int val){
+	public static Collection<AvgDeathAge> getAvgDeathAgeGreaterThan(int val){
 		ArrayList<AvgDeathAge> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
@@ -251,7 +251,7 @@ public class OptimizedQueries {
 		return list;
 	}
 	
-	public static Collection<CommonBeneficiary> getCommonBeneficiariesGraterThan(int val){
+	public static Collection<CommonBeneficiary> getCommonBeneficiariesGreaterThan(int val){
 		ArrayList<CommonBeneficiary> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
