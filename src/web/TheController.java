@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 import model.AvgDeathAge;
 import model.AvgOFWsPerNuclearFamily;
@@ -159,7 +158,6 @@ public class TheController {
 			list = OptimizedQueries.getCommonBeneficiariesGreaterThan(val);
 			break;
 		}
-		JOptionPane.showMessageDialog(null, time);
 		request.setAttribute("commonbeneficiaries", list);
 		request.setAttribute("time", time);
 		request.getRequestDispatcher("WEB-INF/view/query7_results.jsp").forward(request, response);
