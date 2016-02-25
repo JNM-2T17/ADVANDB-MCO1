@@ -12,18 +12,25 @@ import model.HealthyKids;
 
 public class test {
 	public static void main(String[] args){
+		System.out.println("TEST");
 		Collection<AvgOFWsPerNuclearFamily> list = BaseQueries.getAvgOFWsPerNuclearFamilyWithOFWCountGreaterThan(0);
 		System.out.println(list.size());
-		Collection<HealthyKids> list2 = BaseQueries.getPlacesWithHealthyKidsGreaterThan(0);
+		System.out.println("TEST");
+		Collection<HealthyKids> list2 = BaseQueries.getPlacesWithHealthyKidsGreaterThan(0,2);
 		System.out.println(list2.size());
+		System.out.println("TEST");
 		Collection<AvgDeathAge> list3 = BaseQueries.getAvgDeathAgeGraterThan(0);
 		System.out.println(list3.size());
+		System.out.println("TEST");
 		Collection<FishCount> list4 = BaseQueries.getFishCountsGraterThan(0);
 		System.out.println(list4.size());
-		Collection<CropVolume> list5 = BaseQueries.getCropVolumesGraterThan(0);
+		System.out.println("TEST");
+		Collection<CropVolume> list5 = BaseQueries.getCropVolumesGreaterThan(0);
 		System.out.println(list5.size());
-		Collection<CatchRatio> list6 = BaseQueries.getCatchRatiosGraterThan(0);
+		System.out.println("TEST");
+		Collection<CatchRatio> list6 = BaseQueries.getCatchRatiosGreaterThan(0);
 		System.out.println(list6.size());
+		System.out.println("TEST");
 		Collection<CommonBeneficiary> list7 = BaseQueries.getCommonBeneficiariesGraterThan(0);
 		System.out.println(list7.size());
 	}
