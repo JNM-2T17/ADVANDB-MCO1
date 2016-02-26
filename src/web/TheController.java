@@ -86,23 +86,24 @@ public class TheController {
 	}
 	
 	@RequestMapping("/BaseQuery3")
-	public void baseQuery3(@RequestParam(value="val") int val, @RequestParam(value="type") int type, 
+	public void baseQuery3(@RequestParam(value="val") int val, @RequestParam(value="type") int type,
+			@RequestParam(value="deady") int deady, 
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		Collection<AvgDeathAge> list = null;
 		long time = System.currentTimeMillis();
 		switch(type){
 		case 1:
-			list = BaseQueries.getAvgDeathAgeGreaterThan(val);
+			list = BaseQueries.getAvgDeathAgeGreaterThan(val, type);
 			time = System.currentTimeMillis()-time;
 			break;
 		case 2:
-			list = OptimizedQueries.getAvgDeathAgeGreaterThan(val);
+			list = OptimizedQueries.getAvgDeathAgeGreaterThan(val, type);
 			time = System.currentTimeMillis()-time;
 			break;
 		case 3:
 			IndexedQueries.createIndexesForQuery3();
 			time = System.currentTimeMillis();
-			list = IndexedQueries.getAvgDeathAgeGreaterThan(val);
+			list = IndexedQueries.getAvgDeathAgeGreaterThan(val, type);
 			time = System.currentTimeMillis()-time;
 			IndexedQueries.dropIndexesForQuery3();
 			break;
@@ -147,10 +148,10 @@ public class TheController {
 		long time = System.currentTimeMillis();
 		switch(type){
 		case 1:
-			list = BaseQueries.getCropVolumesGreaterThan(val);
+			list = BaseQueries.getCropVolumesGreaterThan(val,type);
 			break;
 		case 2:
-			list = OptimizedQueries.getCropVolumesGreaterThan(val);
+			list = OptimizedQueries.getCropVolumesGreaterThan(val,type);
 			break;
 		case 3:
 			IndexedQueries.createIndexesForQuery5();

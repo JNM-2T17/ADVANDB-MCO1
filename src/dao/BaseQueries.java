@@ -87,7 +87,7 @@ public class BaseQueries {
 		return list;
 	}
 	
-	public static Collection<AvgDeathAge> getAvgDeathAgeGreaterThan(int val){
+	public static Collection<AvgDeathAge> getAvgDeathAgeGreaterThan(int val, int deady){
 		ArrayList<AvgDeathAge> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
@@ -96,10 +96,11 @@ public class BaseQueries {
 			statement = connection.prepareStatement(
 					"SELECT H.mun,H.zone,H.brgy, mdeadsx, AVG(mdeadage) avg_death_age"
 							+ " FROM hpq_hh H, hpq_death D"
-							+ " WHERE H.id = D.hpq_hh_id"
+							+ " WHERE H.id = D.hpq_hh_id AND mdeady = ?"
 							+ " GROUP BY H.mun,H.zone,H.brgy,mdeadsx"
 							+ " HAVING AVG(mdeadage) > ?");
-			statement.setInt(1, val);
+			statement.setInt(1, deady);
+			statement.setInt(2, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())
@@ -154,7 +155,7 @@ public class BaseQueries {
 		return list;
 	}
 	
-	public static Collection<CropVolume> getCropVolumesGreaterThan(double val){
+	public static Collection<CropVolume> getCropVolumesGreaterThan(double val,int croptype){
 		ArrayList<CropVolume> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
@@ -164,9 +165,11 @@ public class BaseQueries {
 					"SELECT H.mun,H.zone,H.brgy, SUM(crop_vol) AS totalcrop, SUM(alp_area) AS totalArea, SUM(crop_vol)/SUM(alp_area) AS cropDensity"
 							+ " FROM hpq_hh H, hpq_alp A, hpq_crop C"
 							+ " WHERE H.id = A.hpq_hh_id AND H.id = C.hpq_hh_id"
+							+ " AND croptype = ?"
 							+ " GROUP BY H.mun,H.zone,H.brgy"
 							+ " HAVING cropDensity > ?");
-			statement.setDouble(1, val);
+			statement.setDouble(1, croptype);
+			statement.setDouble(2, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())

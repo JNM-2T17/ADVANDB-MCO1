@@ -1,5 +1,5 @@
 CREATE INDEX HIndex
-ON db_hpq.hpq_hh (mun, zone, brgy, purok, nnucfam, nofw);
+ON db_hpq.hpq_hh (nnucfam);
 
 SELECT mun, zone, brgy, purok
 		, SUM(nnucfam) AS `Nuclear Families`, SUM(nofw) AS OFWs

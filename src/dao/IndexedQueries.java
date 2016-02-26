@@ -89,7 +89,7 @@ public class IndexedQueries {
 		return list;
 	}
 	
-	public static Collection<AvgDeathAge> getAvgDeathAgeGreaterThan(int val){
+	public static Collection<AvgDeathAge> getAvgDeathAgeGreaterThan(int val,int deady){
 		ArrayList<AvgDeathAge> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
@@ -100,11 +100,13 @@ public class IndexedQueries {
 					+ " FROM (SELECT id, mun, zone, brgy"
 					+ " FROM hpq_hh)H INNER JOIN "
 					+ " (SELECT hpq_hh_id, mdeadsx, mdeadage "
-					+ " FROM hpq_death) D "
+					+ " FROM hpq_death"
+					+ " WHERE mdeady = ?) D "
 					+ " ON H.id = D.hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy,mdeadsx"
 					+ " HAVING AVG(mdeadage) > ?");
-			statement.setInt(1, val);
+			statement.setInt(1, deady);
+			statement.setInt(2, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())

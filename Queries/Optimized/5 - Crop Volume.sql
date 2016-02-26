@@ -6,7 +6,8 @@ FROM (SELECT id,mun,zone,brgy
         ((SELECT hpq_hh_id,alp_area 
 				FROM hpq_alp ) A INNER JOIN 
 		(SELECT hpq_hh_id,crop_vol
-		FROM hpq_crop) C 
+		FROM hpq_crop
+        WHERE croptype = 2) C 
 		ON A.hpq_hh_id = C.hpq_hh_id) 
 	ON H.id = A.hpq_hh_id
 GROUP BY H.mun,H.zone,H.brgy
