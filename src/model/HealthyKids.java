@@ -18,6 +18,12 @@ public class HealthyKids {
 		case 2:
 			nutStatus = "Normal";
 			break;
+		case 3:
+			nutStatus = "Below Normal (Moderate)";
+			break;
+		case 4:
+			nutStatus = "Below Normal (Severe)";
+			break;
 		}
 		this.nutCount = nutCount;
 	}
