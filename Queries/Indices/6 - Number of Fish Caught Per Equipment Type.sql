@@ -1,9 +1,7 @@
-CREATE INDEX HIndex1
-ON db_hpq.hpq_hh (id, mun, zone, brgy);
 CREATE INDEX HIndex2
-ON db_hpq.hpq_aquaequip (hpq_hh_id, aquaequip_line);
+ON db_hpq.hpq_aquaequip (aquaequip_line);
 CREATE INDEX HIndex3
-ON db_hpq.hpq_aquani (hpq_hh_id, aquani_vol);
+ON db_hpq.hpq_aquani (aquanitype);
 
 select mun, zone, brgy,SUM(aquaequip_line) AS totalequip
 		, SUM(aquani_vol) AS totalvol
@@ -20,6 +18,5 @@ from ((SELECT hpq_hh_id,aquaequip_line
 	ON H.id = AA.hpq_hh_id
 group by H.mun,H.zone,H.brgy;
 
-ALTER TABLE hpq_hh DROP INDEX HIndex1;
 ALTER TABLE hpq_aquaequip DROP INDEX HIndex2;
 ALTER TABLE hpq_aquani DROP INDEX HIndex3;

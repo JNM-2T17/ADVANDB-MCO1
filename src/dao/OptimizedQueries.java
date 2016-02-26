@@ -89,7 +89,7 @@ public class OptimizedQueries {
 		return list;
 	}
 	
-	public static Collection<AvgDeathAge> getAvgDeathAgeGreaterThan(int val){
+	public static Collection<AvgDeathAge> getAvgDeathAgeGreaterThan(int val,int deady){
 		ArrayList<AvgDeathAge> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
@@ -100,11 +100,13 @@ public class OptimizedQueries {
 					+ " FROM (SELECT id, mun, zone, brgy"
 					+ " FROM hpq_hh)H INNER JOIN "
 					+ " (SELECT hpq_hh_id, mdeadsx, mdeadage "
-					+ " FROM hpq_death) D "
+					+ " FROM hpq_death"
+					+ " WHERE mdeady = ?) D "
 					+ " ON H.id = D.hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy,mdeadsx"
 					+ " HAVING AVG(mdeadage) > ?");
-			statement.setInt(1, val);
+			statement.setInt(1, deady);
+			statement.setInt(2, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())
@@ -163,7 +165,7 @@ public class OptimizedQueries {
 		return list;
 	}
 	
-	public static Collection<CropVolume> getCropVolumesGreaterThan(double val){
+	public static Collection<CropVolume> getCropVolumesGreaterThan(double val,int croptype){
 		ArrayList<CropVolume> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
@@ -178,12 +180,14 @@ public class OptimizedQueries {
 					+ " ((SELECT hpq_hh_id,alp_area "
 					+ " FROM hpq_alp ) A INNER JOIN "
 					+ " (SELECT hpq_hh_id,crop_vol"
-					+ " FROM hpq_crop) C "
+					+ " FROM hpq_crop"
+					+ " WHERE croptype = ?) C "
 					+ " ON A.hpq_hh_id = C.hpq_hh_id) "
 					+ " ON H.id = A.hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy"
 					+ " HAVING cropDensity > ?");
-			statement.setDouble(1, val);
+			statement.setDouble(1, croptype);
+			statement.setDouble(2, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())

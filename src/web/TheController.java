@@ -75,10 +75,10 @@ public class TheController {
 		long time = System.currentTimeMillis();
 		switch(type){
 		case 1:
-			list = BaseQueries.getAvgDeathAgeGreaterThan(val);
+			list = BaseQueries.getAvgDeathAgeGreaterThan(val,type);
 			break;
 		case 2:
-			list = OptimizedQueries.getAvgDeathAgeGreaterThan(val);
+			list = OptimizedQueries.getAvgDeathAgeGreaterThan(val,type);
 			break;
 		}
 		time = System.currentTimeMillis()-time;
@@ -114,10 +114,10 @@ public class TheController {
 		long time = System.currentTimeMillis();
 		switch(type){
 		case 1:
-			list = BaseQueries.getCropVolumesGreaterThan(val);
+			list = BaseQueries.getCropVolumesGreaterThan(val,type);
 			break;
 		case 2:
-			list = OptimizedQueries.getCropVolumesGreaterThan(val);
+			list = OptimizedQueries.getCropVolumesGreaterThan(val,type);
 			break;
 		}
 		time = System.currentTimeMillis()-time;
