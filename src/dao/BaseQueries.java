@@ -87,7 +87,7 @@ public class BaseQueries {
 		return list;
 	}
 	
-	public static Collection<AvgDeathAge> getAvgDeathAgeGreaterThan(int val,int deady){
+	public static Collection<AvgDeathAge> getAvgDeathAgeGreaterThan(int val, int deady){
 		ArrayList<AvgDeathAge> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;

@@ -16,7 +16,7 @@ import model.CropVolume;
 import model.FishCount;
 import model.HealthyKids;
 
-public class OptimizedQueries {
+public class IndexedQueries {
 	public static Collection<AvgOFWsPerNuclearFamily> getAvgOFWsPerNuclearFamilyWithOFWCountGreaterThan(int val){
 		ArrayList<AvgOFWsPerNuclearFamily> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
@@ -165,7 +165,7 @@ public class OptimizedQueries {
 		return list;
 	}
 	
-	public static Collection<CropVolume> getCropVolumesGreaterThan(double val,int croptype){
+	public static Collection<CropVolume> getCropVolumesGreaterThan(double val){
 		ArrayList<CropVolume> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement statement = null;
@@ -180,14 +180,12 @@ public class OptimizedQueries {
 					+ " ((SELECT hpq_hh_id,alp_area "
 					+ " FROM hpq_alp ) A INNER JOIN "
 					+ " (SELECT hpq_hh_id,crop_vol"
-					+ " FROM hpq_crop"
-					+ " WHERE croptype = ?) C "
+					+ " FROM hpq_crop) C "
 					+ " ON A.hpq_hh_id = C.hpq_hh_id) "
 					+ " ON H.id = A.hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy"
 					+ " HAVING cropDensity > ?");
-			statement.setDouble(1, croptype);
-			statement.setDouble(2, val);
+			statement.setDouble(1, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())
@@ -300,5 +298,200 @@ public class OptimizedQueries {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public static void createIndexesForQuery1(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("CREATE INDEX HIndex"
+					+ " ON db_hpq.hpq_hh (mun, zone, brgy, purok, nnucfam, nofw)");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void dropIndexesForQuery1(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createIndexesForQuery2(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("CREATE INDEX HIndex"
+					+ " ON db_hpq.hpq_mem (country_resid, prov_resid_code, mnutind)");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void dropIndexesForQuery2(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("ALTER TABLE hpq_mem DROP INDEX HIndex");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createIndexesForQuery3(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("CREATE INDEX HIndex1"
+					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
+			statement.executeUpdate("CREATE INDEX HIndex2"
+					+ " ON db_hpq.hpq_death (hpq_hh_id, mdeadsx, mdeadage)");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void dropIndexesForQuery3(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
+			statement.executeUpdate("ALTER TABLE hpq_death DROP INDEX HIndex2");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createIndexesForQuery4(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("CREATE INDEX HIndex1"
+					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
+			statement.executeUpdate("CREATE INDEX HIndex2"
+					+ " ON db_hpq.hpq_aquani (hpq_hh_id, aquanitype)");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void dropIndexesForQuery4(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
+			statement.executeUpdate("ALTER TABLE hpq_aquani DROP INDEX HIndex2");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createIndexesForQuery5(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("CREATE INDEX HIndex1"
+					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
+			statement.executeUpdate("CREATE INDEX HIndex2"
+					+ " ON db_hpq.hpq_alp (hpq_hh_id, alp_area)");
+			statement.executeUpdate("CREATE INDEX HIndex3"
+					+ " ON db_hpq.hpq_crop (hpq_hh_id, crop_vol)");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void dropIndexesForQuery5(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
+			statement.executeUpdate("ALTER TABLE hpq_alp DROP INDEX HIndex2");
+			statement.executeUpdate("ALTER TABLE hpq_crop DROP INDEX HIndex3");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createIndexesForQuery6(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("CREATE INDEX HIndex1"
+					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
+			statement.executeUpdate("CREATE INDEX HIndex2"
+					+ " ON db_hpq.hpq_aquaequip (hpq_hh_id, aquaequip_line)");
+			statement.executeUpdate("CREATE INDEX HIndex3"
+					+ " ON db_hpq.hpq_aquani (hpq_hh_id, aquani_vol)");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void dropIndexesForQuery6(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
+			statement.executeUpdate("ALTER TABLE hpq_aquaequip DROP INDEX HIndex2");
+			statement.executeUpdate("ALTER TABLE hpq_aquani DROP INDEX HIndex3");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createIndexesForQuery7(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("CREATE INDEX HIndex1"
+					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
+			statement.executeUpdate("CREATE INDEX hpq_phiheal_spon_memidx_1"
+					+ " ON hpq_phiheal_spon_mem(phiheal_spon_mem_refno)");
+			statement.executeUpdate("CREATE INDEX hpq_phiheal_empl_memidx_1"
+					+ " ON hpq_phiheal_empl_mem(phiheal_empl_mem_refno)");
+			statement.executeUpdate("CREATE INDEX hpq_phiheal_indiv_memidx_1"
+					+ " ON hpq_phiheal_indiv_mem(phiheal_indiv_mem_refno)");
+			statement.executeUpdate("CREATE INDEX hpq_phiheal_life_memidx_1"
+					+ " ON hpq_phiheal_life_mem(phiheal_life_mem_refno)");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void dropIndexesForQuery7(){
+		Connection connection = DBManager.getInstance().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
+			statement.executeUpdate("DROP INDEX hpq_phiheal_spon_memidx_1"
+					+ " ON hpq_phiheal_spon_mem;");
+			statement.executeUpdate("DROP INDEX hpq_phiheal_empl_memidx_1"
+					+ " ON hpq_phiheal_empl_mem");
+			statement.executeUpdate("DROP INDEX hpq_phiheal_indiv_memidx_1"
+					+ " ON hpq_phiheal_indiv_mem");
+			statement.executeUpdate("DROP INDEX hpq_phiheal_life_memidx_1"
+					+ " ON hpq_phiheal_life_mem");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

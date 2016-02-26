@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.BaseQueries;
+import dao.IndexedQueries;
 import dao.OptimizedQueries;
 
 @Controller
@@ -37,12 +38,20 @@ public class TheController {
 		switch(type){
 		case 1:
 			list = BaseQueries.getAvgOFWsPerNuclearFamilyWithOFWCountGreaterThan(val);
+			time = System.currentTimeMillis()-time;
 			break;
 		case 2:
 			list = OptimizedQueries.getAvgOFWsPerNuclearFamilyWithOFWCountGreaterThan(val);
+			time = System.currentTimeMillis()-time;
+			break;
+		case 3:
+			IndexedQueries.createIndexesForQuery1();
+			time = System.currentTimeMillis();
+			list = IndexedQueries.getAvgOFWsPerNuclearFamilyWithOFWCountGreaterThan(val);
+			time = System.currentTimeMillis()-time;
+			IndexedQueries.dropIndexesForQuery1();
 			break;
 		}
-		time = System.currentTimeMillis()-time;
 		request.setAttribute("avgofws", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query1_results.jsp").forward(request, response);
@@ -57,31 +66,48 @@ public class TheController {
 		switch(type){
 		case 1:
 			list = BaseQueries.getPlacesWithHealthyKidsGreaterThan(val, minNutIndex);
+			time = System.currentTimeMillis()-time;
 			break;
 		case 2:
 			list = OptimizedQueries.getPlacesWithHealthyKidsGreaterThan(val, minNutIndex);
+			time = System.currentTimeMillis()-time;
+			break;
+		case 3:
+			IndexedQueries.createIndexesForQuery2();
+			time = System.currentTimeMillis();
+			list = IndexedQueries.getPlacesWithHealthyKidsGreaterThan(val, minNutIndex);
+			time = System.currentTimeMillis()-time;
+			IndexedQueries.dropIndexesForQuery2();
 			break;
 		}
-		time = System.currentTimeMillis()-time;
 		request.setAttribute("healthykids", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query2_results.jsp").forward(request, response);
 	}
 	
 	@RequestMapping("/BaseQuery3")
-	public void baseQuery3(@RequestParam(value="val") int val, @RequestParam(value="type") int type, 
+	public void baseQuery3(@RequestParam(value="val") int val, @RequestParam(value="type") int type,
+			@RequestParam(value="deady") int deady, 
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		Collection<AvgDeathAge> list = null;
 		long time = System.currentTimeMillis();
 		switch(type){
 		case 1:
-			list = BaseQueries.getAvgDeathAgeGreaterThan(val,type);
+			list = BaseQueries.getAvgDeathAgeGreaterThan(val, type);
+			time = System.currentTimeMillis()-time;
 			break;
 		case 2:
-			list = OptimizedQueries.getAvgDeathAgeGreaterThan(val,type);
+			list = OptimizedQueries.getAvgDeathAgeGreaterThan(val, type);
+			time = System.currentTimeMillis()-time;
+			break;
+		case 3:
+			IndexedQueries.createIndexesForQuery3();
+			time = System.currentTimeMillis();
+			list = IndexedQueries.getAvgDeathAgeGreaterThan(val, type);
+			time = System.currentTimeMillis()-time;
+			IndexedQueries.dropIndexesForQuery3();
 			break;
 		}
-		time = System.currentTimeMillis()-time;
 		request.setAttribute("avgdeaths", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query3_results.jsp").forward(request, response);
@@ -96,12 +122,20 @@ public class TheController {
 		switch(type){
 		case 1:
 			list = BaseQueries.getFishCountsGreaterThan(val, aquanitype);
+			time = System.currentTimeMillis()-time;
 			break;
 		case 2:
 			list = OptimizedQueries.getFishCountsGreaterThan(val, aquanitype);
+			time = System.currentTimeMillis()-time;
+			break;
+		case 3:
+			IndexedQueries.createIndexesForQuery4();
+			time = System.currentTimeMillis();
+			list = IndexedQueries.getFishCountsGreaterThan(val, aquanitype);
+			time = System.currentTimeMillis()-time;
+			IndexedQueries.dropIndexesForQuery4();
 			break;
 		}
-		time = System.currentTimeMillis()-time;
 		request.setAttribute("fishcount", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query4_results.jsp").forward(request, response);
@@ -119,8 +153,14 @@ public class TheController {
 		case 2:
 			list = OptimizedQueries.getCropVolumesGreaterThan(val,type);
 			break;
+		case 3:
+			IndexedQueries.createIndexesForQuery5();
+			time = System.currentTimeMillis();
+			list = IndexedQueries.getCropVolumesGreaterThan(val);
+			time = System.currentTimeMillis()-time;
+			IndexedQueries.dropIndexesForQuery5();
+			break;
 		}
-		time = System.currentTimeMillis()-time;
 		request.setAttribute("cropvolume", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query5_results.jsp").forward(request, response);
@@ -135,12 +175,20 @@ public class TheController {
 		switch(type){
 		case 1:
 			list = BaseQueries.getCatchRatiosGreaterThan(val, aquaequiptype, aquanitype);
+			time = System.currentTimeMillis()-time;
 			break;
 		case 2:
 			list = OptimizedQueries.getCatchRatiosGreaterThan(val, aquaequiptype, aquanitype);
+			time = System.currentTimeMillis()-time;
+			break;
+		case 3:
+			IndexedQueries.createIndexesForQuery6();
+			time = System.currentTimeMillis();
+			list = IndexedQueries.getCatchRatiosGreaterThan(val, aquaequiptype, aquanitype);
+			time = System.currentTimeMillis()-time;
+			IndexedQueries.dropIndexesForQuery6();
 			break;
 		}
-		time = System.currentTimeMillis()-time;
 		request.setAttribute("catchratios", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query6_results.jsp").forward(request, response);
@@ -154,12 +202,20 @@ public class TheController {
 		switch(type){
 		case 1:
 			list = BaseQueries.getCommonBeneficiariesGreaterThan(val);
+			time = System.currentTimeMillis()-time;
 			break;
 		case 2:
 			list = OptimizedQueries.getCommonBeneficiariesGreaterThan(val);
+			time = System.currentTimeMillis()-time;
+			break;
+		case 3:
+			IndexedQueries.createIndexesForQuery7();
+			time = System.currentTimeMillis();
+			list = IndexedQueries.getCommonBeneficiariesGreaterThan(val);
+			time = System.currentTimeMillis()-time;
+			IndexedQueries.dropIndexesForQuery7();
 			break;
 		}
-		time = System.currentTimeMillis()-time;
 		request.setAttribute("commonbeneficiaries", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query7_results.jsp").forward(request, response);
