@@ -305,7 +305,7 @@ public class IndexedQueries {
 		try {
 			Statement statement = connection.createStatement();
 			statement.executeUpdate("CREATE INDEX HIndex"
-					+ " ON db_hpq.hpq_hh (mun, zone, brgy, purok, nnucfam, nofw)");
+					+ " ON db_hpq.hpq_hh (nnucfam)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -328,7 +328,7 @@ public class IndexedQueries {
 		try {
 			Statement statement = connection.createStatement();
 			statement.executeUpdate("CREATE INDEX HIndex"
-					+ " ON db_hpq.hpq_mem (country_resid, prov_resid_code, mnutind)");
+					+ " ON db_hpq.hpq_mem (mnutind)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -350,10 +350,8 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("CREATE INDEX HIndex1"
-					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
 			statement.executeUpdate("CREATE INDEX HIndex2"
-					+ " ON db_hpq.hpq_death (hpq_hh_id, mdeadsx, mdeadage)");
+					+ " ON db_hpq.hpq_death (mdeady)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -364,7 +362,6 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
 			statement.executeUpdate("ALTER TABLE hpq_death DROP INDEX HIndex2");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -376,10 +373,8 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("CREATE INDEX HIndex1"
-					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
 			statement.executeUpdate("CREATE INDEX HIndex2"
-					+ " ON db_hpq.hpq_aquani (hpq_hh_id, aquanitype)");
+					+ " ON db_hpq.hpq_aquani (aquanitype)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -390,7 +385,6 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
 			statement.executeUpdate("ALTER TABLE hpq_aquani DROP INDEX HIndex2");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -402,12 +396,8 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("CREATE INDEX HIndex1"
-					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
-			statement.executeUpdate("CREATE INDEX HIndex2"
-					+ " ON db_hpq.hpq_alp (hpq_hh_id, alp_area)");
 			statement.executeUpdate("CREATE INDEX HIndex3"
-					+ " ON db_hpq.hpq_crop (hpq_hh_id, crop_vol)");
+					+ " ON db_hpq.hpq_crop (croptype)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -418,8 +408,6 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
-			statement.executeUpdate("ALTER TABLE hpq_alp DROP INDEX HIndex2");
 			statement.executeUpdate("ALTER TABLE hpq_crop DROP INDEX HIndex3");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -431,12 +419,10 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("CREATE INDEX HIndex1"
-					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
 			statement.executeUpdate("CREATE INDEX HIndex2"
-					+ " ON db_hpq.hpq_aquaequip (hpq_hh_id, aquaequip_line)");
+					+ " ON db_hpq.hpq_aquaequip (aquaequiptype)");
 			statement.executeUpdate("CREATE INDEX HIndex3"
-					+ " ON db_hpq.hpq_aquani (hpq_hh_id, aquani_vol)");
+					+ " ON db_hpq.hpq_aquani (aquanitype)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -447,7 +433,6 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
 			statement.executeUpdate("ALTER TABLE hpq_aquaequip DROP INDEX HIndex2");
 			statement.executeUpdate("ALTER TABLE hpq_aquani DROP INDEX HIndex3");
 		} catch (SQLException e) {
@@ -460,8 +445,6 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("CREATE INDEX HIndex1"
-					+ " ON db_hpq.hpq_hh (id, mun, zone, brgy)");
 			statement.executeUpdate("CREATE INDEX hpq_phiheal_spon_memidx_1"
 					+ " ON hpq_phiheal_spon_mem(phiheal_spon_mem_refno)");
 			statement.executeUpdate("CREATE INDEX hpq_phiheal_empl_memidx_1"
@@ -480,7 +463,6 @@ public class IndexedQueries {
 		Connection connection = DBManager.getInstance().getConnection();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("ALTER TABLE hpq_hh DROP INDEX HIndex1");
 			statement.executeUpdate("DROP INDEX hpq_phiheal_spon_memidx_1"
 					+ " ON hpq_phiheal_spon_mem;");
 			statement.executeUpdate("DROP INDEX hpq_phiheal_empl_memidx_1"
