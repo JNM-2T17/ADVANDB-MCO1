@@ -13,10 +13,6 @@ CREATE OR REPLACE VIEW crop AS
 SELECT hpq_hh_id,crop_vol, croptype
 FROM hpq_crop;
 
-DELIMITER $$
-
-CREATE PROCEDURE query5(IN cType INT,IN minCount INT)
-BEGIN
 SELECT H.mun,H.zone,H.brgy, SUM(crop_vol) AS totalcrop
 		, SUM(alp_area) AS totalArea
         , SUM(crop_vol)/SUM(alp_area) AS cropDensity
@@ -24,15 +20,10 @@ FROM geoHH H INNER JOIN
         (alp A INNER JOIN 
 		(SELECT hpq_hh_id,crop_vol
         FROM crop
-        WHERE croptype = cType) C 
+        WHERE croptype = 2) C 
 		ON A.hpq_hh_id = C.hpq_hh_id) 
 	ON H.id = A.hpq_hh_id
 GROUP BY H.mun,H.zone,H.brgy
-HAVING cropDensity > minCount;
-END$$
-
-DELIMITER ;
-
-CALL query5(2,0);
+HAVING cropDensity > 0;
 
 ALTER TABLE hpq_crop DROP INDEX HIndex3;
