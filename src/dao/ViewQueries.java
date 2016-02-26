@@ -16,7 +16,7 @@ import model.CropVolume;
 import model.FishCount;
 import model.HealthyKids;
 
-public class IndexedQueries {
+public class ViewQueries {
 	public static Collection<AvgOFWsPerNuclearFamily> getAvgOFWsPerNuclearFamilyWithOFWCountGreaterThan(int val){
 		ArrayList<AvgOFWsPerNuclearFamily> list = new ArrayList<>();
 		Connection connection = DBManager.getInstance().getConnection();
@@ -25,11 +25,9 @@ public class IndexedQueries {
 		try {
 			statement = connection.prepareStatement(
 							"SELECT mun, zone, brgy, purok"
-							+ ", SUM(nnucfam) AS `Nuclear Families`, SUM(nofw) AS OFWs"
-							+ ", SUM(nofw) / SUM(nnucfam) AS `Average OFW's per Nuclear Family`"
-							+ " FROM (SELECT mun, zone, brgy, purok, nnucfam, nofw"
-							+ " FROM db_hpq.hpq_hh"
-							+ " WHERE nnucfam > 0) A"
+							+ " , SUM(nnucfam) AS `Nuclear Families`, SUM(nofw) AS OFWs"
+							+ " , SUM(nofw) / SUM(nnucfam) AS `Average OFW's per Nuclear Family`"
+							+ " FROM hhnucfam"
 							+ " GROUP BY mun, zone, brgy, purok"
 							+ " HAVING SUM(nofw) > ?");
 			statement.setInt(1, val);
@@ -63,9 +61,8 @@ public class IndexedQueries {
 		try {
 			statement = connection.prepareStatement(
 					"SELECT country_resid, prov_resid_code, mnutind,COUNT(mnutind) nutCount"
-					+ " FROM (SELECT country_resid, prov_resid_code, mnutind"
-					+ " FROM hpq_mem"
-					+ " WHERE mnutind <= ?) M"
+					+ " FROM kidHealthThresh"
+					+ " WHERE mnutind <= ?"
 					+ " GROUP BY country_resid, prov_resid_code,mnutind"
 					+ " HAVING nutCount > ?");
 			statement.setInt(1, minNutIndex);
@@ -97,10 +94,9 @@ public class IndexedQueries {
 		try {
 			statement = connection.prepareStatement(
 					"SELECT H.mun,H.zone,H.brgy, mdeadsx, AVG(mdeadage) avg_death_age"
-					+ " FROM (SELECT id, mun, zone, brgy"
-					+ " FROM hpq_hh)H INNER JOIN "
+					+ " FROM geoHH H INNER JOIN "
 					+ " (SELECT hpq_hh_id, mdeadsx, mdeadage "
-					+ " FROM hpq_death"
+					+ " FROM deathSxAge"
 					+ " WHERE mdeady = ?) D "
 					+ " ON H.id = D.hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy,mdeadsx"
@@ -135,10 +131,9 @@ public class IndexedQueries {
 		try {
 			statement = connection.prepareStatement(
 					"SELECT H.mun,H.zone,H.brgy, SUM(aquani_vol) fishcount"
-					+ " FROM (SELECT id,mun,zone,brgy "
-					+ " FROM hpq_hh) H INNER JOIN "
+					+ " FROM geoHH H INNER JOIN "
 					+ " (SELECT hpq_hh_id, aquani_vol "
-					+ " FROM hpq_aquani"
+					+ " FROM aquani"
 					+ " WHERE aquanitype = ?) A"
 					+ " ON H.id = A.hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy"
@@ -175,12 +170,10 @@ public class IndexedQueries {
 					"SELECT H.mun,H.zone,H.brgy, SUM(crop_vol) AS totalcrop"
 					+ ", SUM(alp_area) AS totalArea"
 					+ ", SUM(crop_vol)/SUM(alp_area) AS cropDensity"
-					+ " FROM (SELECT id,mun,zone,brgy"
-					+ " FROM hpq_hh) H INNER JOIN"
-					+ " ((SELECT hpq_hh_id,alp_area "
-					+ " FROM hpq_alp ) A INNER JOIN "
+					+ " FROM geoHH H INNER JOIN"
+					+ " (alp A INNER JOIN "
 					+ " (SELECT hpq_hh_id,crop_vol"
-					+ " FROM hpq_crop"
+					+ " FROM crop"
 					+ " WHERE croptype = ?) C "
 					+ " ON A.hpq_hh_id = C.hpq_hh_id) "
 					+ " ON H.id = A.hpq_hh_id"
@@ -220,14 +213,13 @@ public class IndexedQueries {
 					+ "		, SUM(aquani_vol) AS totalvol"
 					+ "        , SUM(aquani_vol)/SUM(aquaequip_line) AS CatchPerEquip"
 					+ " from ((SELECT hpq_hh_id,aquaequip_line"
-					+ "		FROM hpq_aquaequip"
+					+ "		FROM aquaeq"
 					+ "        WHERE aquaequiptype = ?) AA INNER JOIN"
 					+ "	(SELECT hpq_hh_id, aquani_vol "
-					+ "		FROM hpq_aquani"
+					+ "		FROM aquani"
 					+ "        WHERE aquanitype = ?)AP"
 					+ "	ON AA.hpq_hh_id = AP.hpq_hh_id) INNER JOIN"
-					+ "    (SELECT id, mun, zone, brgy"
-					+ "		FROM hpq_hh) H"
+					+ "    geoHH H"
 					+ "	ON H.id = AA.hpq_hh_id"
 					+ " group by H.mun,H.zone,H.brgy"
 					+ " having catchperequip > ?");
@@ -263,23 +255,9 @@ public class IndexedQueries {
 		try {
 			statement = connection.prepareStatement(
 					"SELECT H.mun,H.zone,H.brgy,COUNT(H.id) benefCount"
-					+ " FROM (SELECT id, mun, zone, brgy "
-					+ " FROM hpq_hh) H INNER JOIN "
-					+ " ((((SELECT hpq_hh_id, phiheal_spon_mem_refno"
-					+ " FROM hpq_phiheal_spon_mem)PSM INNER JOIN"
-					+ " (SELECT hpq_hh_id, phiheal_empl_mem_refno "
-					+ " FROM hpq_phiheal_empl_mem )PEM"
-					+ " ON PSM.hpq_hh_id = PEM.hpq_hh_id"
-					+ " AND PSM.phiheal_spon_mem_refno = PEM.phiheal_empl_mem_refno) INNER JOIN"
-					+ " (SELECT hpq_hh_id, phiheal_indiv_mem_refno "
-					+ " FROM hpq_phiheal_indiv_mem )PIM "
-					+ " ON PEM.hpq_hh_id = PIM.hpq_hh_id"
-					+ " AND PEM.phiheal_empl_mem_refno = PIM.phiheal_indiv_mem_refno) INNER JOIN"
-					+ " (SELECT hpq_hh_id, phiheal_life_mem_refno"
-					+ " FROM hpq_phiheal_life_mem ) PLM"
-					+ " ON PIM.hpq_hh_id = PLM.hpq_hh_id"
-					+ " AND PIM.phiheal_indiv_mem_refno = PLM.phiheal_life_mem_refno )"
-					+ " ON id = PSM.hpq_hh_id"
+					+ " FROM simpleHH INNER JOIN "
+					+ " commonPhilHealth"
+					+ " ON id = hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy"
 					+ " HAVING benefCount > ?");
 			statement.setInt(1, val);

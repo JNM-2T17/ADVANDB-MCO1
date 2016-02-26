@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import dao.BaseQueries;
 import dao.IndexedQueries;
 import dao.OptimizedQueries;
+import dao.SPQueries;
+import dao.ViewQueries;
 
 @Controller
 public class TheController {
@@ -51,6 +53,20 @@ public class TheController {
 			time = System.currentTimeMillis()-time;
 			IndexedQueries.dropIndexesForQuery1();
 			break;
+		case 4:
+			SPQueries.createIndexesForQuery1();
+			time = System.currentTimeMillis();
+			list = SPQueries.getAvgOFWsPerNuclearFamilyWithOFWCountGreaterThan(val);
+			time = System.currentTimeMillis()-time;
+			SPQueries.dropIndexesForQuery1();
+			break;
+		case 5:
+			ViewQueries.createIndexesForQuery1();
+			time = System.currentTimeMillis();
+			list = ViewQueries.getAvgOFWsPerNuclearFamilyWithOFWCountGreaterThan(val);
+			time = System.currentTimeMillis()-time;
+			ViewQueries.dropIndexesForQuery1();
+			break;
 		}
 		request.setAttribute("avgofws", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
@@ -78,6 +94,20 @@ public class TheController {
 			list = IndexedQueries.getPlacesWithHealthyKidsGreaterThan(val, minNutIndex);
 			time = System.currentTimeMillis()-time;
 			IndexedQueries.dropIndexesForQuery2();
+			break;
+		case 4:
+			SPQueries.createIndexesForQuery2();
+			time = System.currentTimeMillis();
+			list = SPQueries.getPlacesWithHealthyKidsGreaterThan(val, minNutIndex);
+			time = System.currentTimeMillis()-time;
+			SPQueries.dropIndexesForQuery2();
+			break;
+		case 5:
+			ViewQueries.createIndexesForQuery2();
+			time = System.currentTimeMillis();
+			list = ViewQueries.getPlacesWithHealthyKidsGreaterThan(val, minNutIndex);
+			time = System.currentTimeMillis()-time;
+			ViewQueries.dropIndexesForQuery2();
 			break;
 		}
 		request.setAttribute("healthykids", list);
@@ -107,6 +137,20 @@ public class TheController {
 			time = System.currentTimeMillis()-time;
 			IndexedQueries.dropIndexesForQuery3();
 			break;
+		case 4:
+			SPQueries.createIndexesForQuery3();
+			time = System.currentTimeMillis();
+			list = SPQueries.getAvgDeathAgeGreaterThan(val, deady);
+			time = System.currentTimeMillis()-time;
+			SPQueries.dropIndexesForQuery3();
+			break;
+		case 5:
+			ViewQueries.createIndexesForQuery3();
+			time = System.currentTimeMillis();
+			list = ViewQueries.getAvgDeathAgeGreaterThan(val, deady);
+			time = System.currentTimeMillis()-time;
+			ViewQueries.dropIndexesForQuery3();
+			break;
 		}
 		request.setAttribute("avgdeaths", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
@@ -135,6 +179,20 @@ public class TheController {
 			time = System.currentTimeMillis()-time;
 			IndexedQueries.dropIndexesForQuery4();
 			break;
+		case 4:
+			SPQueries.createIndexesForQuery4();
+			time = System.currentTimeMillis();
+			list = SPQueries.getFishCountsGreaterThan(val, aquanitype);
+			time = System.currentTimeMillis()-time;
+			SPQueries.dropIndexesForQuery4();
+			break;
+		case 5:
+			ViewQueries.createIndexesForQuery4();
+			time = System.currentTimeMillis();
+			list = ViewQueries.getFishCountsGreaterThan(val, aquanitype);
+			time = System.currentTimeMillis()-time;
+			ViewQueries.dropIndexesForQuery4();
+			break;
 		}
 		request.setAttribute("fishcount", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
@@ -143,22 +201,37 @@ public class TheController {
 	
 	@RequestMapping("/BaseQuery5")
 	public void baseQuery5(@RequestParam(value="val") double val, @RequestParam(value="type") int type, 
+			@RequestParam(value="croptype") int croptype, 
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		Collection<CropVolume> list = null;
 		long time = System.currentTimeMillis();
 		switch(type){
 		case 1:
-			list = BaseQueries.getCropVolumesGreaterThan(val,type);
+			list = BaseQueries.getCropVolumesGreaterThan(val,croptype);
 			break;
 		case 2:
-			list = OptimizedQueries.getCropVolumesGreaterThan(val,type);
+			list = OptimizedQueries.getCropVolumesGreaterThan(val,croptype);
 			break;
 		case 3:
 			IndexedQueries.createIndexesForQuery5();
 			time = System.currentTimeMillis();
-			list = IndexedQueries.getCropVolumesGreaterThan(val);
+			list = IndexedQueries.getCropVolumesGreaterThan(val,croptype);
 			time = System.currentTimeMillis()-time;
 			IndexedQueries.dropIndexesForQuery5();
+			break;
+		case 4:
+			SPQueries.createIndexesForQuery5();
+			time = System.currentTimeMillis();
+			list = SPQueries.getCropVolumesGreaterThan(val, croptype);
+			time = System.currentTimeMillis()-time;
+			SPQueries.dropIndexesForQuery5();
+			break;
+		case 5:
+			ViewQueries.createIndexesForQuery5();
+			time = System.currentTimeMillis();
+			list = ViewQueries.getCropVolumesGreaterThan(val, croptype);
+			time = System.currentTimeMillis()-time;
+			ViewQueries.dropIndexesForQuery5();
 			break;
 		}
 		request.setAttribute("cropvolume", list);
@@ -188,6 +261,20 @@ public class TheController {
 			time = System.currentTimeMillis()-time;
 			IndexedQueries.dropIndexesForQuery6();
 			break;
+		case 4:
+			SPQueries.createIndexesForQuery6();
+			time = System.currentTimeMillis();
+			list = SPQueries.getCatchRatiosGreaterThan(val, aquaequiptype, aquanitype);
+			time = System.currentTimeMillis()-time;
+			SPQueries.dropIndexesForQuery6();
+			break;
+		case 5:
+			ViewQueries.createIndexesForQuery6();
+			time = System.currentTimeMillis();
+			list = ViewQueries.getCatchRatiosGreaterThan(val, aquaequiptype, aquanitype);
+			time = System.currentTimeMillis()-time;
+			ViewQueries.dropIndexesForQuery6();
+			break;
 		}
 		request.setAttribute("catchratios", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
@@ -214,6 +301,20 @@ public class TheController {
 			list = IndexedQueries.getCommonBeneficiariesGreaterThan(val);
 			time = System.currentTimeMillis()-time;
 			IndexedQueries.dropIndexesForQuery7();
+			break;
+		case 4:
+			SPQueries.createIndexesForQuery7();
+			time = System.currentTimeMillis();
+			list = SPQueries.getCommonBeneficiariesGreaterThan(val);
+			time = System.currentTimeMillis()-time;
+			SPQueries.dropIndexesForQuery7();
+			break;
+		case 5:
+			ViewQueries.createIndexesForQuery7();
+			time = System.currentTimeMillis();
+			list = ViewQueries.getCommonBeneficiariesGreaterThan(val);
+			time = System.currentTimeMillis()-time;
+			ViewQueries.dropIndexesForQuery7();
 			break;
 		}
 		request.setAttribute("commonbeneficiaries", list);
