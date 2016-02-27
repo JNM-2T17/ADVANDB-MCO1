@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>CBMS something something</title>
+<link rel="stylesheet" href="cbms.css" />
 </head>
 <body>
 	<form id="theForm" onSubmit="return formManager.check()">
