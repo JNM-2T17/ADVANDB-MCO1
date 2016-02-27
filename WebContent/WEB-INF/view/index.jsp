@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>CBMS something something</title>
+<link rel="stylesheet" href="cbms.css" />
 </head>
 <body>
 	<form id="theForm" onSubmit="return formManager.check()">
@@ -70,7 +71,7 @@
 						this.input.innerHTML = 
 							"Minimum Aggregate: <input name='val' id='val' type='number' /><br/>\
 							Cause of Death: \
-								<select name="mdeady" id="mdeady"> \
+								<select name='mdeady' id='mdeady'> \
 								<option val=1> Diseases of the heart</option> \
 								<option val=2> Diseases of the vascular system</option> \
 								<option val=3> Pneumonia</option> \

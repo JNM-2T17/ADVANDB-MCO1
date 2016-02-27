@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Average OFWs Per Nuclear Family</title>
+<link rel="stylesheet" href="cbms.css" />
 </head>
 <body>
 	<h1>Average OFWs Per Nuclear Family</h1>

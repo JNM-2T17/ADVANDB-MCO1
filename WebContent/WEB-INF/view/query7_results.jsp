@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Common Beneficiaries</title>
+<link rel="stylesheet" href="cbms.css" />
 </head>
 <body>
 	<h1>Common Beneficiaries</h1>
