@@ -14,7 +14,7 @@
 	<jsp:include page="header.jsp" />
 	<jsp:include page="selectQuery.jsp" />
 	<script>
-		formManager.updateForm({value:1});
+		document.getElementById("querySel").value = 1;
 		document.getElementById("queryType").value = ${type };
 		document.getElementById("val").value = ${val };
 	</script>

@@ -4,7 +4,7 @@
 	<div id="querySelect" class="container">
 		<h1 id="selectLabel">Select Query</h1>
 		<form id="theForm" onSubmit="return formManager.check()">
-			<select id="querySelect" onChange="formManager.updateForm(this);">
+			<select id="querySel" onChange="formManager.updateForm(this);">
 				<option value="1" selected>Average OFW's Per Nuclear Family</option>
 				<option value="2">Number of Children above a Particular Nutritional Index</option>
 				<option value="3">Average Age of Death Divided by Sex and Geographical Location</option>
