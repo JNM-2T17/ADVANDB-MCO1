@@ -185,7 +185,7 @@ public class OptimizedQueries {
 					+ " ON H.id = A.hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy"
 					+ " HAVING cropDensity > ?");
-			statement.setDouble(1, croptype);
+			statement.setInt(1, croptype);
 			statement.setDouble(2, val);
 			resultSet = statement.executeQuery();
 			

@@ -178,8 +178,8 @@ public class ViewQueries {
 					+ " ON H.id = A.hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy"
 					+ " HAVING cropDensity > ?");
-			statement.setDouble(1, val);
-			statement.setInt(2, croptype);
+			statement.setInt(1, croptype);
+			statement.setDouble(2, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())

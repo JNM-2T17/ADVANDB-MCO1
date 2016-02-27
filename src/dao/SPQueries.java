@@ -144,7 +144,8 @@ public class SPQueries {
 		try {
 			statement = connection.prepareStatement(
 					"CALL query5(?,?)");
-			statement.setDouble(1, val);
+			statement.setDouble(1, croptype);
+			statement.setDouble(2, val);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())
