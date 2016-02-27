@@ -7,30 +7,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Average Age of Death</title>
-<link rel="stylesheet" href="cbms.css" />
+<link rel="stylesheet" href="<c:url value="/resources/cbms.css" />" />
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<h1>Average Age of Death</h1>
-	<h5>Total Row Count: ${fn:length(avgdeaths) }</h5>
-	<h5>Query Execution Time: ${time }</h5>
-	<table>
-		<tr>
-			<th>Municipality</th>
-			<th>Zone</th>
-			<th>Barangay</th>
-			<th>Gender</th>
-			<th>Average Age of Death</th>
-		</tr>
-		<c:forEach var="death" items="${avgdeaths }">
+	<jsp:include page="selectQuery.jsp" />
+	<div class="container">
+		<h1>Average Age of Death</h1>
+		<h5>Total Row Count: ${fn:length(avgdeaths) }</h5>
+		<h5>Query Execution Time: ${time }</h5>
+		<table>
 			<tr>
-				<td>${death.mun }</td>
-				<td>${death.zone }</td>
-				<td>${death.brgy }</td>
-				<td>${death.mdeadsx }</td>
-				<td>${death.avg_death_age }</td>
+				<th>Municipality</th>
+				<th>Zone</th>
+				<th>Barangay</th>
+				<th>Gender</th>
+				<th>Average Age of Death</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach var="death" items="${avgdeaths }">
+				<tr>
+					<td>${death.mun }</td>
+					<td>${death.zone }</td>
+					<td>${death.brgy }</td>
+					<td>${death.mdeadsx }</td>
+					<td>${death.avg_death_age }</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 </body>
 </html>

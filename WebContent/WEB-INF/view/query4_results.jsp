@@ -7,28 +7,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Fish Count</title>
-<link rel="stylesheet" href="cbms.css" />
+<link rel="stylesheet" href="<c:url value="/resources/cbms.css" />" />
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<h1>Fish Count</h1>
-	<h5>Total Row Count: ${fn:length(fishcount) }</h5>
-	<h5>Query Execution Time: ${time }</h5>
-	<table>
-		<tr>
-			<th>Municipality</th>
-			<th>Zone</th>
-			<th>Barangay</th>
-			<th>Fish Count</th>
-		</tr>
-		<c:forEach var="fish" items="${fishcount }">
+	<jsp:include page="selectQuery.jsp" />
+	<div class="container">
+		<h1>Fish Count</h1>
+		<h5>Total Row Count: ${fn:length(fishcount) }</h5>
+		<h5>Query Execution Time: ${time }</h5>
+		<table>
 			<tr>
-				<td>${fish.mun }</td>
-				<td>${fish.zone }</td>
-				<td>${fish.brgy }</td>
-				<td>${fish.fishcount }</td>
+				<th>Municipality</th>
+				<th>Zone</th>
+				<th>Barangay</th>
+				<th>Fish Count</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach var="fish" items="${fishcount }">
+				<tr>
+					<td>${fish.mun }</td>
+					<td>${fish.zone }</td>
+					<td>${fish.brgy }</td>
+					<td>${fish.fishcount }</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 </body>
 </html>

@@ -117,7 +117,7 @@ public class TheController {
 	
 	@RequestMapping("/BaseQuery3")
 	public void baseQuery3(@RequestParam(value="val") int val, @RequestParam(value="type") int type,
-			@RequestParam(value="deady") int deady, 
+			@RequestParam(value="mdeady") int deady, 
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		Collection<AvgDeathAge> list = null;
 		long time = System.currentTimeMillis();
