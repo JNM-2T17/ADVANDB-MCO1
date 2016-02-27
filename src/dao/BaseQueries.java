@@ -143,8 +143,7 @@ public class BaseQueries {
 						resultSet.getString(1), 
 						resultSet.getString(2), 
 						resultSet.getString(3), 
-						resultSet.getInt(4), 
-						resultSet.getInt(5));
+						resultSet.getInt(4));
 				list.add(res);
 			}
 			connection.close();

@@ -17,7 +17,6 @@
 			<th>Municipality</th>
 			<th>Zone</th>
 			<th>Barangay</th>
-			<th>Equipment ID</th>
 			<th>Fish Count</th>
 		</tr>
 		<c:forEach var="fish" items="${fishcount }">
@@ -25,7 +24,6 @@
 				<td>${fish.mun }</td>
 				<td>${fish.zone }</td>
 				<td>${fish.brgy }</td>
-				<td>${fish.aquanitype }</td>
 				<td>${fish.fishcount }</td>
 			</tr>
 		</c:forEach>

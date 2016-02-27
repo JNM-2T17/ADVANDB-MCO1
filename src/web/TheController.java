@@ -123,17 +123,17 @@ public class TheController {
 		long time = System.currentTimeMillis();
 		switch(type){
 		case 1:
-			list = BaseQueries.getAvgDeathAgeGreaterThan(val, type);
+			list = BaseQueries.getAvgDeathAgeGreaterThan(val, deady);
 			time = System.currentTimeMillis()-time;
 			break;
 		case 2:
-			list = OptimizedQueries.getAvgDeathAgeGreaterThan(val, type);
+			list = OptimizedQueries.getAvgDeathAgeGreaterThan(val, deady);
 			time = System.currentTimeMillis()-time;
 			break;
 		case 3:
 			IndexedQueries.createIndexesForQuery3();
 			time = System.currentTimeMillis();
-			list = IndexedQueries.getAvgDeathAgeGreaterThan(val, type);
+			list = IndexedQueries.getAvgDeathAgeGreaterThan(val, deady);
 			time = System.currentTimeMillis()-time;
 			IndexedQueries.dropIndexesForQuery3();
 			break;
