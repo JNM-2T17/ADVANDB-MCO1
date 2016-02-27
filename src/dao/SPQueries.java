@@ -205,7 +205,7 @@ public class SPQueries {
 		ResultSet resultSet = null;
 		try {
 			statement = connection.prepareStatement(
-					"CALL query7(0)");
+					"CALL query7(?)");
 			statement.setInt(1, val);
 			resultSet = statement.executeQuery();
 			

@@ -254,7 +254,7 @@ public class ViewQueries {
 		try {
 			statement = connection.prepareStatement(
 					"SELECT H.mun,H.zone,H.brgy,COUNT(H.id) benefCount"
-					+ " FROM simpleHH INNER JOIN "
+					+ " FROM simpleHH H INNER JOIN "
 					+ " commonPhilHealth"
 					+ " ON id = hpq_hh_id"
 					+ " GROUP BY H.mun,H.zone,H.brgy"
