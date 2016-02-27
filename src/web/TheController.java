@@ -68,6 +68,8 @@ public class TheController {
 			ViewQueries.dropIndexesForQuery1();
 			break;
 		}
+		request.setAttribute("type",type);
+		request.setAttribute("val",val);
 		request.setAttribute("avgofws", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query1_results.jsp").forward(request, response);
@@ -110,6 +112,9 @@ public class TheController {
 			ViewQueries.dropIndexesForQuery2();
 			break;
 		}
+		request.setAttribute("type",type);
+		request.setAttribute("val",val);
+		request.setAttribute("minNutIndex",minNutIndex);
 		request.setAttribute("healthykids", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query2_results.jsp").forward(request, response);
@@ -152,6 +157,9 @@ public class TheController {
 			ViewQueries.dropIndexesForQuery3();
 			break;
 		}
+		request.setAttribute("type",type);
+		request.setAttribute("val",val);
+		request.setAttribute("mdeady",deady);
 		request.setAttribute("avgdeaths", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query3_results.jsp").forward(request, response);
@@ -194,6 +202,9 @@ public class TheController {
 			ViewQueries.dropIndexesForQuery4();
 			break;
 		}
+		request.setAttribute("type",type);
+		request.setAttribute("val",val);
+		request.setAttribute("aquanitype",aquanitype);
 		request.setAttribute("fishcount", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query4_results.jsp").forward(request, response);
@@ -236,6 +247,9 @@ public class TheController {
 			ViewQueries.dropIndexesForQuery5();
 			break;
 		}
+		request.setAttribute("type",type);
+		request.setAttribute("val",val);
+		request.setAttribute("croptype",croptype);
 		request.setAttribute("cropvolume", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query5_results.jsp").forward(request, response);
@@ -278,6 +292,10 @@ public class TheController {
 			ViewQueries.dropIndexesForQuery6();
 			break;
 		}
+		request.setAttribute("type",type);
+		request.setAttribute("val",val);
+		request.setAttribute("aquanitype",aquanitype);
+		request.setAttribute("aquaequiptype",aquaequiptype);
 		request.setAttribute("catchratios", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query6_results.jsp").forward(request, response);
@@ -319,6 +337,8 @@ public class TheController {
 			ViewQueries.dropIndexesForQuery7();
 			break;
 		}
+		request.setAttribute("type",type);
+		request.setAttribute("val",val);
 		request.setAttribute("commonbeneficiaries", list);
 		request.setAttribute("time", (Math.round(time * 1000.0) / 1000.0 / 1000.0)+"s");
 		request.getRequestDispatcher("WEB-INF/view/query7_results.jsp").forward(request, response);

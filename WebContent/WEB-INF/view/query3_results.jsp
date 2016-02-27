@@ -13,6 +13,12 @@
 <body>
 	<jsp:include page="header.jsp" />
 	<jsp:include page="selectQuery.jsp" />
+	<script>
+		formManager.updateForm({value:3});
+		document.getElementById("queryType").value = ${type };
+		document.getElementById("val").value = ${val };
+		document.getElementById("mdeady").value = ${mdeady };
+	</script>
 	<div class="container">
 		<h1>Average Age of Death</h1>
 		<h5>Total Row Count: ${fn:length(avgdeaths) }</h5>

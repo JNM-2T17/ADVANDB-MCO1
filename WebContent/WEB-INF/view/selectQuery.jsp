@@ -13,7 +13,7 @@
 				<option value="6">Amount of Aquatic Animals Caught Per Type of Aquatic Equipment</option>
 				<option value="7">Number of Common Philhealth Beneficiaries</option>
 			</select><br/>
-			<select name="type">
+			<select name="type" id="queryType">
 				<option value="1" selected>Base</option>
 				<option value="2">Heuristic Optimization</option>
 				<option value="3">Indices</option>

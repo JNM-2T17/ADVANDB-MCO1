@@ -12,6 +12,12 @@
 <body>
 	<jsp:include page="header.jsp" />
 	<jsp:include page="selectQuery.jsp" />
+	<script>
+		formManager.updateForm({value:2});
+		document.getElementById("queryType").value = ${type };
+		document.getElementById("val").value = ${val };
+		document.getElementById("minNutIndex").value = ${minNutIndex };
+	</script>
 	<div class="container">
 		<h1>Healthy Kids</h1>
 		<h5>Total Row Count: ${fn:length(healthykids) }</h5>
