@@ -57,32 +57,90 @@
 					case 2:
 						this.input.innerHTML = 
 							"Minimum Aggregate: <input name='val' id='val' type='number' /><br/>\
-							Minimum Nutritional Index: <input name='minNutIndex' id='minNutIndex' type='number' />";
+							Minimum Nutritional Index: \
+								<select name="minNutIndex" id="minNutIndex"> \
+								<option val=1>Above Normal</option> \
+								<option val=2>Normal</option> \
+								<option val=3>Below Normal (moderate)</option> \
+								<option val=4>Below Normal (sever) </option> \
+							</select>";
 						this.inputs = ["val","minNutIndex"];
 						break;
 					case 3:
 						this.input.innerHTML = 
 							"Minimum Aggregate: <input name='val' id='val' type='number' /><br/>\
-							Cause of Death: <input name='mdeady' id='mdeady' type='number' />";
+							Cause of Death: \
+								<select name="mdeady" id="mdeady"> \
+								<option val=1> Diseases of the heart</option> \
+								<option val=2> Diseases of the vascular system</option> \
+								<option val=3> Pneumonia</option> \
+								<option val=4> Tuberculosis</option> \
+								<option val=5> Cancer</option> \
+								<option val=6> Diarrhea</option> \
+								<option val=7> Measles</option> \
+								<option val=8> Complication during pregnancy or childbirth</option> \
+								<option val=9> Accident (ex. hit by a vehicle)</option> \
+								<option val=10> Diabetes</option> \
+								<option val=11> Disease of the lungs</option> \
+								<option val=12> Disease of the kidney</option> \
+								<option val=13> Drowned from flood</option> \
+								<option val=14> Victim of landslide</option> \
+								<option val=15> Electrocuted during typhoon</option> \
+								<option val=16> Murder</option> \
+								<option val=17> Other</option> \
+							</select>";
 						this.inputs = ["val","mdeady"];
 						break;
 					case 4:
 						this.input.innerHTML = 
 							"Minimum Aggregate: <input name='val' id='val' type='number' /><br/>\
-							Aquatic Animal Type: <input name='aquanitype' id='aquanitype' type='number' />";
+							Aquatic Animal Type: \
+								<select name="aquanitype" id="aquanitype"> \
+								<option val=1>Tilapia</option> \
+								<option val=2>Milkfish</option> \
+								<option val=3>Catfish</option> \
+								<option val=4>Mudfish</option> \
+								<option val=5>Carp</option> \
+								<option val=6>Other</option> \
+							</select>";
 						this.inputs = ["val","aquanitype"];	
 						break;
 					case 5:
 						this.input.innerHTML = 
 							"Minimum Aggregate: <input name='val' id='val' type='number' /><br/>\
-							Crop Type: <input name='croptype' id='croptype' type='number' />";
+							Crop Type: \
+								<select name="croptype" id="croptype"> \
+									<option val=1>Sugar Cane</option> \
+									<option val=2>Palay</option> \
+									<option val=3>Corn</option> \
+									<option val=4>Coffee</option> \
+									<option val=5>Other Crops</option> \
+								</select>";
 						this.inputs = ["val","croptype"];	
 						break;
 					case 6:
 						this.input.innerHTML = 
 							"Minimum Aggregate: <input name='val' id='val' type='number' /><br/>\
-							Aquatic Animal Type: <input name='aquanitype' id='aquanitype' type='number' /><br/>\
-							Aquatic Equipment Type: <input name='aquaequiptype' id='aquaequiptype' type='number' />";
+							Aquatic Animal Type: \
+												<select name="aquanitype" id="aquanitype"> \
+													<option val=1>Tilapia</option> \
+													<option val=2>Milkfish</option> \
+													<option val=3>Catfish</option> \
+													<option val=4>Mudfish</option> \
+													<option val=5>Carp</option> \
+													<option val=6>Other</option> \
+												</select><br/>\
+							Aquatic Equipment Type: \
+								<select name="aquaequiptype" id="aquaequiptype"> \
+									<option val=1> Fish net</option> \
+									<option val=2> Electricity</option> \
+									<option val=3> Bagnets</option> \
+									<option val=4> Gillnets</option> \
+									<option val=5> Traps</option> \
+									<option val=6> Hooks and line</option> \
+									<option val=7> Sift net</option> \
+									<option val=8> Others</option> \
+								</select>";
 						this.inputs = ["val","aquanitype","aquaequiptype"];	
 						break;
 					case 7:
@@ -99,14 +157,10 @@
 				for(v in this.inputs) {
 					var input = document.getElementById(this.inputs[v]);
 					var val = input.value;
-					console.log(!(/[0-9]+/.test(val)));
 					if( !(/[0-9]+/.test(val)) ) {
 						error += this.map[this.inputs[v]] + " should be a number.<br/>";
-						console.log("Error: " + error);
 					}
 				}
-				console.log(error);
-				console.log(error.length);
 				if( error.length == 0 ) {
 					return true;
 				} else {
