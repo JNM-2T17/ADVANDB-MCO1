@@ -15,6 +15,7 @@
 	<jsp:include page="selectQuery.jsp" />
 	<script>
 		document.getElementById("querySel").value = 5;
+		formManager.updateForm({value : 5});
 		document.getElementById("queryType").value = ${type };
 		document.getElementById("val").value = ${val };
 		document.getElementById("croptype").value = ${croptype };
