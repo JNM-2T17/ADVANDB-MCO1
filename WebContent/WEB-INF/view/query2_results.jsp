@@ -7,8 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Healthy Kids</title>
+<link rel="stylesheet" href="CBMS.css" />
 </head>
 <body>
+	<jsp:include page="header.jsp" />
 	<h1>Healthy Kids</h1>
 	<h5>Total Row Count: ${fn:length(healthykids) }</h5>
 	<h5>Query Execution Time: ${time }</h5>

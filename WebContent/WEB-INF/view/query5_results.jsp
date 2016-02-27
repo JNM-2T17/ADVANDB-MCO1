@@ -7,8 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Crop Volume</title>
+<link rel="stylesheet" href="CBMS.css" />
 </head>
 <body>
+	<jsp:include page="header.jsp" />
 	<h1>Crop Volume</h1>
 	<h5>Total Row Count: ${fn:length(cropvolume) }</h5>
 	<h5>Query Execution Time: ${time }</h5>
