@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>CBMS something something</title>
+<title>Community-Based Monitoring System</title>
 <link rel="stylesheet" href="<c:url value="/resources/cbms.css" />" />
+<link rel="shortcut icon" href="<c:url value="/resources/logo.png" />" /> 
 </head>
 <body>
 	<jsp:include page="header.jsp"/>

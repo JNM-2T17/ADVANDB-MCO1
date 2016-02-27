@@ -9,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Average Age of Death</title>
 <link rel="stylesheet" href="<c:url value="/resources/cbms.css" />" />
+<link rel="shortcut icon" href="<c:url value="/resources/logo.png" />" /> 
 </head>
 <body>
 	<jsp:include page="header.jsp" />
