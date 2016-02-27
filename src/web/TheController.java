@@ -208,9 +208,11 @@ public class TheController {
 		switch(type){
 		case 1:
 			list = BaseQueries.getCropVolumesGreaterThan(val,croptype);
+			time = System.currentTimeMillis()-time;
 			break;
 		case 2:
 			list = OptimizedQueries.getCropVolumesGreaterThan(val,croptype);
+			time = System.currentTimeMillis()-time;
 			break;
 		case 3:
 			IndexedQueries.createIndexesForQuery5();

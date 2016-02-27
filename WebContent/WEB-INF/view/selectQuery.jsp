@@ -17,8 +17,8 @@
 				<option value="1" selected>Base</option>
 				<option value="2">Heuristic Optimization</option>
 				<option value="3">Indices</option>
-				<option value="4">Views</option>
-				<option value="5">Stored Procedures</option>
+				<option value="5">Views</option>
+				<option value="4">Stored Procedures</option>
 			</select>
 			<div id="inputForm"></div>
 			<div id="errors"></div>

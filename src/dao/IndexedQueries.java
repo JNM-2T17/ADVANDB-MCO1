@@ -172,23 +172,23 @@ public class IndexedQueries {
 		try {
 			statement = connection.prepareStatement(
 					"SELECT H.mun,H.zone,H.brgy, SUM(crop_vol) AS totalcrop"
-					+ ", SUM(alp_area) AS totalArea"
-					+ ", SUM(crop_vol)/SUM(alp_area) AS cropDensity"
-					+ " FROM (SELECT id,mun,zone,brgy"
-					+ " FROM hpq_hh) H INNER JOIN"
-					+ " ((SELECT hpq_hh_id,alp_area "
-					+ " FROM hpq_alp ) A INNER JOIN "
-					+ " (SELECT hpq_hh_id,crop_vol"
-					+ " FROM hpq_crop"
-					+ " WHERE croptype = ?) C "
-					+ " ON A.hpq_hh_id = C.hpq_hh_id) "
-					+ " ON H.id = A.hpq_hh_id"
-					+ " GROUP BY H.mun,H.zone,H.brgy"
-					+ " HAVING cropDensity > ?");
-			statement.setDouble(1, val);
-			statement.setInt(2, croptype);
+							+ ", SUM(alp_area) AS totalArea"
+							+ ", SUM(crop_vol)/SUM(alp_area) AS cropDensity"
+							+ " FROM (SELECT id,mun,zone,brgy"
+							+ " FROM hpq_hh) H INNER JOIN"
+							+ " ((SELECT hpq_hh_id,alp_area "
+							+ " FROM hpq_alp ) A INNER JOIN "
+							+ " (SELECT hpq_hh_id,crop_vol"
+							+ " FROM hpq_crop"
+							+ " WHERE croptype = ?) C "
+							+ " ON A.hpq_hh_id = C.hpq_hh_id) "
+							+ " ON H.id = A.hpq_hh_id"
+							+ " GROUP BY H.mun,H.zone,H.brgy"
+							+ " HAVING cropDensity > ?");
+			statement.setInt(1, croptype);
+			statement.setDouble(2, val);
 			resultSet = statement.executeQuery();
-			
+			System.out.println(resultSet);
 			while(resultSet.next())
 			{
 				CropVolume res = new CropVolume(
@@ -198,6 +198,7 @@ public class IndexedQueries {
 						resultSet.getInt(4), 
 						resultSet.getInt(5), 
 						resultSet.getDouble(6));
+				System.out.println(res);
 				list.add(res);
 			}
 			connection.close();
